@@ -1,7 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const crypto = require("crypto");
-const nodemailer = require("nodemailer");
+require("dotenv").config();
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 
@@ -19,6 +18,8 @@ app.use(bodyParser.json());
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
+
+console.log(process.env.ACCOUNT_GOOGLE, process.env.PASSWORD);
 
 // Connect to Mongoose DB
 connection();
