@@ -18,12 +18,13 @@ const sendVerificationEmail = async (email, verificationToken) => {
     from: process.env.ACCOUNT_GOOGLE,
     to: email,
     subject: "Email verification",
-    text: `Please click the following link to verify your email: http://localhost:8000/api/verify/${verificationToken}`,
+    text: `Please click the following link to verify your email: http://localhost:${process.env.PORT}/api/auth/verify/${verificationToken}`,
   };
 
   // Send the email
   try {
-    await transporter.sendMail(info)
+    await transporter.sendMail(info);
+    console.log("Verification email sent successfully");
   } catch (err) {
     console.log("Error sending verification email", err);
   }
