@@ -15,7 +15,7 @@ const sendVerificationEmail = async (email, verificationToken) => {
 
   // Compose the email address
   const info = {
-    from: process.env.ACCOUNT_GOOGLE,
+    from: process.env.ACCOUNT_NAME,
     to: email,
     subject: "Email verification",
     text: `Please click the following link to verify your email: http://localhost:${process.env.PORT}/api/auth/verify/${verificationToken}`,

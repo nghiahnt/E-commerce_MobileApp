@@ -4,7 +4,7 @@ const User = require("../models/user.js");
 
 const verifyEmail = require("../helper/verifyEmail.js");
 const generateSecretKey = require("../helper/generateSecretKey.js");
-const { response } = require("express");
+// const { response } = require("express");
 
 const auth = {
   registerUser: async ({ name, email, password }) => {
@@ -80,28 +80,48 @@ const auth = {
   loginUser: async ({ email, password }) => {
     try {
       // Check if the user already exists
-      const user = await User.findOne({ email: email })
+      const user = await User.findOne({ email: email });
       if (!user) {
         return {
           status: 401,
-          message: "Invalid email or password"
-        }
+          message: "Invalid email or password",
+        };
       }
 
+      // Check if the password is correct
+      if (user.password !== password) {
+        return {
+          status: 401,
+          message: "Invalid password",
+        };
+      }
+
+      // Verify email address
+      if (user.verified == "false") {
+        return {
+          status: 404,
+          message: "Please verify in your email address",
+        };
+      }
       // ok - generate a token
-      const token = jwt.sign({ userId: user._id }, generateSecretKey())
+      const token = jwt.sign({ userId: user._id }, generateSecretKey());
+
+      console.log({
+        message: "Login successful",
+        token,
+      });
       return {
+        message: "Login successful",
         status: 200,
         token: token,
-      }
-
+      };
     } catch (error) {
       return {
+        message: "Login failed",
         status: 500,
-        message: "Login failed"
-      }
+      };
     }
-  }
+  },
 };
 
 module.exports = auth;
