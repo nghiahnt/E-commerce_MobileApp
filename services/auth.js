@@ -84,7 +84,7 @@ const auth = {
       if (!user) {
         return {
           status: 401,
-          message: "Invalid email or password",
+          message: "Invalid email",
         };
       }
 
@@ -105,11 +105,9 @@ const auth = {
       }
       // ok - generate a token
       const token = jwt.sign({ userId: user._id }, generateSecretKey());
-
-      console.log({
-        message: "Login successful",
-        token,
-      });
+      user.accessToken = token;
+      // Need to refresh token and accessToken when expiring time!!!
+      await user.save();
       return {
         message: "Login successful",
         status: 200,

@@ -24,8 +24,8 @@ const auth = {
 
   loginUser: async (req, res, next) => {
     try {
-      const { status, message = "", token = "" } = await authServices.loginUser(req.body);
-      return res.status(status).json({ message, token });
+      const { status, message = "", token } = await authServices.loginUser(req.body);
+      return res.status(status).json({ status, message, token });
     } catch (err) {
       next(err);
     }
