@@ -21,6 +21,28 @@ const productServives = {
     }
   },
 
+  getProductCategory: async (category) => {
+    try {
+      const productCategory = await Product.find({ category: category });
+      if (!productCategory) {
+        return {
+          status: 401,
+          message: "Product category not found",
+        }
+      }
+      return {
+        status: 200,
+        message: "Get product by category successfully",
+        data: productCategory,
+      }
+    } catch (error) {
+      return {
+        status: 505,
+        message: error.message,
+      }
+    }
+  },
+
   createProduct: async (
     { title, price, description, category, quantity },
     files,
@@ -124,6 +146,14 @@ const productServives = {
           CD: CD,
           image: photoUrls.map((url) => ({ path: url })),
         };
+        // return {
+        //   status: 200,
+        //   data: {
+        //     newProduct,
+        //     userId,
+        //     productId
+        //   }
+        // }
         const updatedProduct = await Product.findByIdAndUpdate(
           productId,
           newProduct,

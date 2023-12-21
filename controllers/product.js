@@ -25,6 +25,20 @@ const productController = {
     }
   },
 
+  getProductCategory: async (req, res, next) => {
+    const category = req.params.category;
+    try {
+      const {
+        status,
+        message,
+        data = [],
+      } = await productServives.getProductCategory(category);
+      return res.status(status).json({ status, message, data });
+    } catch (error) {
+      next(error);
+    }
+  },
+
   createProduct: async (req, res, next) => {
     try {
       const files = req.files;

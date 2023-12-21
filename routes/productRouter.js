@@ -10,6 +10,9 @@ productRouter.get("/getAllProducts", productController.getAllProducts);
 // Endpoint to get product by id
 productRouter.get("/getProductId/:id", productController.getProductById);
 
+// Endpoint to get product by category
+productRouter.get("/getProductCategory/:category", productController.getProductCategory);
+
 // Endpoint to create a new product
 productRouter.post(
   "/createProduct",
