@@ -18,7 +18,7 @@ const sendVerificationEmail = async (email, verificationToken) => {
     from: process.env.ACCOUNT_NAME,
     to: email,
     subject: "Email verification",
-    text: `Please click the following link to verify your email: http://localhost:${process.env.PORT}/api/auth/verify/${verificationToken}`,
+    text: `Please click the following link to verify your email: https://e-commerce-backend-7puk.onrender.com/api/auth/verify/${verificationToken}`,
   };
 
   // Send the email
