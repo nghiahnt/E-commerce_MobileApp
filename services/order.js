@@ -24,7 +24,7 @@ const order = {
         name: item?.title,
         quantity: item.quantity,
         price: item.price,
-        image: item?.image,
+        image: item?.image[0].path,
       }));
 
       console.log(products);
