@@ -119,10 +119,8 @@ const order = {
         quantity: item.quantity,
         price: item.price,
         image: item?.image[0].path,
+        productId: item?._id,
       }));
-
-      console.log(products);
-
       const user = await User.findById(userId);
       if (!user) {
         return {
