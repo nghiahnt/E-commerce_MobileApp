@@ -50,6 +50,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
+      productId: {
+        type: mongoose.Types.ObjectId,
+        ref: "Product",
+        required: true,
+      }
     },
   ],
   createAt: {
