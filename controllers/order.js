@@ -49,8 +49,8 @@ const order = {
   deleteCart: async (req, res, next) => {
     try {
       const userId = decodeToken(req.token);
-      const { status, message } = await orderServices.deleteCart(userId);
-      return res.status(status).json({ message: message });
+      const { status, message, data } = await orderServices.deleteCart(userId);
+      return res.status(status).json({ message: message, data: data });
     } catch (error) {
       next(error);
     }

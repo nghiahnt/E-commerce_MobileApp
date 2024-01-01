@@ -149,7 +149,11 @@ const order = {
 
   deleteCart: async (userId) => {
     try {
-      const user = await User.findByIdAndUpdate(userId, { orders: [] }, { new: true});
+      const user = await User.findByIdAndUpdate(
+        userId,
+        { orders: [] },
+        { new: true }
+      );
       if (!user) {
         return {
           status: 404,
