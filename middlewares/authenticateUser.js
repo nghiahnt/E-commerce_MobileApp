@@ -2,15 +2,19 @@ const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const createError = require("http-errors");
 
-const userAccessToken = async () => {
-  const user = await User.findOne({}, "accessToken");
-  return user.accessToken;
-};
-
 module.exports.verifyAccessToken = async (req, res, next) => {
   try {
-    const headersToken = req.headers["authorization"];
+    const userAccessToken = async () => {
+      const DBToken = await User.findOne({
+        accessToken: req.headers["authorization"].split(" ")[1],
+      });
+      return DBToken.accessToken;
+    };
+
+    const headersToken = req.headers["authorization"].split(" ")[1];
     const accessTokenDB = await userAccessToken();
+    console.log(headersToken);
+    console.log(accessTokenDB);
     try {
       // jwt.verify(accessTokenDB, headersToken, (err, payload) => {
       //   if (err) {
